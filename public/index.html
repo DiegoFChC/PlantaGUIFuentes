@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/styles.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Formulario para Datos de Energía</h1>
+
+      <form id="energyForm">
+        <div class="info card">
+          <h4>INFORMACIÓN GENERAL</h4>
+          <label for="days">Cantidad de Días:</label>
+          <input type="number" id="days" name="days" required /><br />
+
+          <label for="clientCount">Cantidad de Clientes:</label>
+          <input
+            type="number"
+            id="clientCount"
+            name="clientCount"
+            required
+          /><br />
+
+          <label for="garantia">Garantía Mínima:</label>
+          <input type="number" id="garantia" name="garantia" required /><br />
+        </div>
+
+        <div class="centrales">
+          <div class="hidroelectrica card">
+            <h4>CENTRAL HIDROELÉCTRICA</h4>
+            <label for="costH">Costo de producción:</label>
+            <input type="number" id="costH" name="costH" required /><br />
+  
+            <label for="capH">Capacidad:</label>
+            <input type="number" id="capH" name="capH" required /><br />
+          </div>
+  
+          <div class="termica card">
+            <h4>CENTRAL TÉRMICA</h4>
+            <label for="costT">Costo de producción:</label>
+            <input type="number" id="costT" name="costT" required /><br />
+  
+            <label for="capT">Capacidad:</label>
+            <input type="number" id="capT" name="capT" required /><br />
+          </div>
+  
+          <div class="nuclear card">
+            <h4>CENTRAL NUCLEAR</h4>
+            <label for="costN">Costo de producción:</label>
+            <input type="number" id="costN" name="costN" required /><br />
+  
+            <label for="capN">Capacidad:</label>
+            <input type="number" id="capN" name="capN" required /><br />
+          </div>
+        </div>
+
+        <table id="clientTable">
+          <tr>
+            <th>Cliente</th>
+            <th>Pago Independiente</th>
+          </tr>
+        </table>
+
+        <input class="enviar" type="submit" value="Calcular ganancia" />
+      </form>
+      <div class="no-results" id="results">
+        <h3>GANANCIA NETA</h3>
+        <p id="ganancia"></p>
+      </div>
+    </div>
+    <script src="./js/script.js"></script>
+  </body>
+</html>

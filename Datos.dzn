@@ -1,0 +1,13 @@
+% Datos generados desde el formulario
+n = 2;
+m = 2;
+cosN = 1000;
+cosH = 1000;
+cosT = 1000;
+capN = 1000;
+capH = 1000;
+capT = 1000;
+G = 50;
+P = [2000, 3000];
+d = [|200, 200
+    |100, 100|];
