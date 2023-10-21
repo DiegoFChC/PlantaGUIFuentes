@@ -1,4 +1,5 @@
 const express = require("express");
+const path = require("path");
 const app = express();
 const port = 3001;
 const fs = require("fs");
@@ -12,15 +13,17 @@ app.get("/", (req, res) => res.sendFile(__dirname + "/public/index.html"));
 
 app.post("/generate-dzn", async (req, res) => {
   try {
-    // Recibe los datos del cliente
     const data = req.body;
 
     // Genera el archivo DZN con los datos recibidos
     const dznContent = generateDZNContent(data);
     fs.writeFileSync("Datos.dzn", dznContent);
 
-    // Ejecuta el modelo MiniZinc con el archivo DZN
-    const modelFile = "ProyectoCentrales_Revison.mzn"; // Reemplaza 'tu_modelo.mzn' con la ruta a tu modelo de MiniZinc
+    // Determina y ejecuta el archivo de modelo MiniZinc a utilizar
+    let modelFile = "ProyectoCentrales_Revison.mzn";
+    if ("ns" in data && "ps" in data) {
+      modelFile = "ProyectoCentrales_Restriccion.mzn";
+    }
     const { stdout } = await exec(`minizinc --solver COIN-BC ${modelFile} Datos.dzn`);
 
     // Envía la respuesta al cliente

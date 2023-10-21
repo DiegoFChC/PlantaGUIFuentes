@@ -1,13 +1,14 @@
 % Datos generados desde el formulario
-n = 2;
-m = 2;
-cosN = 1000;
-cosH = 1000;
-cosT = 1000;
-capN = 1000;
-capH = 1000;
-capT = 1000;
-G = 50;
-P = [2000, 3000];
-d = [|200, 200
-    |100, 100|];
+n = 1;
+m = 1;
+cosN = 44;
+cosH = 22;
+cosT = 3;
+capN = 4;
+capH = 2;
+capT = 3;
+G = 1;
+ns = 1;
+ps = 90;
+P = [2];
+d = [|4|];

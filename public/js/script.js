@@ -6,6 +6,10 @@ const resultsDiv = document.getElementById("results");
 const gananciaP = document.getElementById("ganancia");
 const demandInputs = document.querySelectorAll("input");
 
+const habilitarCamposButton = document.getElementById("habilitarCampos");
+
+habilitarCamposButton.addEventListener("click", habilitarCampos);
+
 daysInput.addEventListener("input", updateTable);
 clientCountInput.addEventListener("input", updateTable);
 
@@ -20,9 +24,11 @@ demandInputs.forEach((input) => {
 
 // Función para cambiar la clase y contenido del div de resultados
 function showResults(result) {
+  let data = "Su ganancia neta dadas estas condiciones es de $ " + result;
+  console.log(data)
   resultsDiv.classList.remove("no-results");
   resultsDiv.classList.add("results");
-  gananciaP.textContent = result; // Establece el número de la función objetivo
+  gananciaP.textContent = data; // Establece el número de la función objetivo
 }
 
 // Función para volver a la clase de no-results
@@ -67,10 +73,20 @@ function generateClientTable(clientCount, days) {
   }
 }
 
+function habilitarCampos() {
+  const camposAdicionales = document.getElementById("camposAdicionales");
+  const botonHabilitar = document.getElementById("habilitarCampos");
+
+  camposAdicionales.style.display = "block";
+  document.getElementById("consecutiveDays").focus();
+  botonHabilitar.style.display = "none";
+}
+
 function generateDZN() {
   const days = parseInt(daysInput.value);
   const clientCount = parseInt(clientCountInput.value);
   const data = {};
+  const camposAdicionales = document.getElementById("camposAdicionales");
 
   // Recopila datos de costo de producción, capacidad, garantía mínima, etc.
   data.n = days;
@@ -82,6 +98,10 @@ function generateDZN() {
   data.capH = parseFloat(document.getElementById("capH").value);
   data.capT = parseFloat(document.getElementById("capT").value);
   data.G = parseFloat(document.getElementById("garantia").value);
+  if (camposAdicionales.style.display != "none") {
+    data.ns = parseInt(document.getElementById("consecutiveDays").value);
+    data.ps = parseFloat(document.getElementById("minGuarantee").value);
+  }
 
   data.P = [];
   for (let i = 1; i <= clientCount; i++) {
@@ -117,14 +137,6 @@ function generateDZN() {
     }
   }
 
-  // Descarga el archivo DZN
-  // const blob = new Blob([dznString], { type: "text/plain" });
-  // const url = URL.createObjectURL(blob);
-  // const a = document.createElement("a");
-  // a.href = url;
-  // a.download = "Datos.dzn";
-  // a.click();
-  // Ahora puedes enviar los datos al servidor para procesarlos
   fetch("/generate-dzn", {
     method: "POST",
     headers: {
@@ -134,9 +146,6 @@ function generateDZN() {
   })
     .then((response) => response.text())
     .then((result) => {
-      // Resultado del modelo MiniZinc, puedes mostrarlo en tu HTML
-      // const resultDiv = document.getElementById("results");
-      // resultDiv.textContent = result;
       console.log(result);
       const regex = /Funcion Objetivo: (\d+)/;
       const match = result.match(regex);

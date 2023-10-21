@@ -13,7 +13,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgb(240, 240, 240);
+  background-color: rgb(44, 105, 236);
 }
 
 .container {
@@ -31,6 +31,8 @@ body {
   & h1 {
     margin-bottom: 15px;
     text-align: center;
+    color: white;
+
   }
 }
 
@@ -65,6 +67,12 @@ form {
   align-items: center;
   justify-content: center;
 
+  & input {
+    border-radius: 10px;
+    height: 30px;
+    text-align: center;
+  }
+
   .enviar {
     width: 200px;
     height: 50px;
@@ -75,6 +83,15 @@ form {
 
     &:hover {
       background-color: rgba(90, 136, 235, 0.151);
+      cursor: pointer;
+    }
+  }
+
+  & button {
+    padding: 5px;
+    border-radius: 10px;
+
+    &:hover {
       cursor: pointer;
     }
   }
@@ -108,4 +125,8 @@ td {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
+  & p {
+    font-size: 2rem;
+  }
 }
