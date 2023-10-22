@@ -14,6 +14,6 @@ npm install
 ```
 Luego, corre el servidor
 ```bash
-npm run dev
+node server.js
 ```
 **Nota:** El servidor Node.js estará en funcionamiento en el puerto 3001 (http://localhost:3001)
