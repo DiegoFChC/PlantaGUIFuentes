@@ -30,7 +30,7 @@ consecutiveDaysInput.addEventListener("input", function () {
 
   if (consecutiveDays > totalDays) {
     errorMessage.textContent = "Error: La cantidad de días consecutivos no puede ser mayor que la cantidad total de días ingresados en el campo superior.";
-    consecutiveDaysInput.classList.add("error"); // Puedes aplicar estilos para resaltar el campo con error
+    consecutiveDaysInput.classList.add("error");
   } else {
     errorMessage.textContent = ""; // Borra el mensaje de error
     consecutiveDaysInput.classList.remove("error");
