@@ -22,6 +22,12 @@ demandInputs.forEach((input) => {
   input.addEventListener("input", hideResults);
 });
 
+const reloadButton = document.getElementById("reloadButton");
+
+reloadButton.addEventListener("click", function () {
+  location.reload(); // Recarga la página actual
+});
+
 // Función para cambiar la clase y contenido del div de resultados
 function showResults(result) {
   let data = "Su ganancia neta dadas estas condiciones es de $ " + result;
@@ -99,7 +105,7 @@ function generateDZN() {
   data.capT = parseFloat(document.getElementById("capT").value);
   data.G = parseFloat(document.getElementById("garantia").value);
   if (camposAdicionales.style.display != "none") {
-    data.ns = parseInt(document.getElementById("consecutiveDays").value);
+    data.ns = (parseInt(document.getElementById("consecutiveDays").value)) + 1;
     data.ps = parseFloat(document.getElementById("minGuarantee").value);
   }
 
