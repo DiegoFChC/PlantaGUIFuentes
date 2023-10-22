@@ -65,17 +65,18 @@
           Añadir restricciones de producción
         </button>
         <div id="camposAdicionales" style="display: none">
-          <label for="consecutiveDays">Cantidad de Días Consecutivos:</label>
+          <label for="consecutiveDays">Cantidad de Días Consecutivos en los que NO se pueden producir en regimen superior:</label>
           <input
             type="number"
             id="consecutiveDays"
             name="consecutiveDays"
             min="0"
-          /><br />
-
+          />
+          <div id="error-message" class="error-message"></div>
           <label for="minGuarantee">Porcentaje de Garantía Mínima:</label>
-          <input type="number" id="minGuarantee" name="minGuarantee" min="0" /><br />
+          <input type="number" id="minGuarantee" name="minGuarantee" min="0" />
         </div>
+        
 
         <input class="enviar" type="submit" value="Calcular ganancia" />
       </form>

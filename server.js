@@ -20,9 +20,9 @@ app.post("/generate-dzn", async (req, res) => {
     fs.writeFileSync("Datos.dzn", dznContent);
 
     // Determina y ejecuta el archivo de modelo MiniZinc a utilizar
-    let modelFile = "ProyectoCentrales_Revison.mzn";
+    let modelFile = "PlantaEnergia.mzn";
     if ("ns" in data && "ps" in data) {
-      modelFile = "ProyectoCentrales_Restriccion.mzn";
+      modelFile = "PlantaEnergia_Restricción.mzn";
     }
     const { stdout } = await exec(`minizinc --solver COIN-BC ${modelFile} Datos.dzn`);
 

@@ -1,3 +1,4 @@
+
 %=============Probléma Centrales Eléctricas=================
 
 %===================David Alberto Guzmán    - 1942789
@@ -54,7 +55,7 @@ var int: PH; %Representa la ganancia neta obtenida por producccion de y entrega 
 
 %==========================================================
 %==========================================================
-%=======================Resticiones========================
+%=======================Restriciones========================
 %==========================================================
 %==========================================================
 
@@ -86,6 +87,8 @@ constraint forall (i in 1..n)(
    pdT[i] <= capT
 );
 
+constraint ns <= n;
+
 %==========================================================
 %==========================================================
 % Restriccion para garantizar que las producion Hidroelectrica no produsca ns dias consecutivo en regimen alto
@@ -111,9 +114,24 @@ constraint forall (i in 1..n)(
 %==========================================================
 %==========================================================
 
-
 constraint PH >= 0;
-
+constraint n >= 0;
+constraint m >= 0;
+constraint ns >= 0;
+constraint ps >= 0;
+constraint G >= 0;
+constraint cosN >= 0;
+constraint cosH >= 0;
+constraint cosT >= 0;
+constraint capN >= 0;
+constraint capH >= 0;
+constraint capT >= 0;
+constraint forall (s in 1..m)(
+  P[s] >= 0
+);
+constraint forall (s in 1..m,i in 1..n) (
+  d[s,i] >= 0
+);
 
 %==========================================================
 %==========================================================
@@ -140,11 +158,12 @@ solve maximize PH;
 %==========================================================
 %==========================================================
 
-%output["Producion Entregada a Cliente",show(pmC),"\n",
-%       "Demanda                      ", "\(d)","\n",
-%       "Producion Central Nuclear       ",show(pdN),"\n",
-%       "Producion Central Hidroeléctrica",show(pdH),"\n",
-%       "Producion Central Térmica       ",show(pdT),"\n",
-%       "La Granancia neta que se obtine al maximizar ","\n",
-%       "la producion en los ",show(n)," días es: $",show(PH)++" COP"];
-output["Funcion Objetivo: ",show(PH)++" COP"];
+%output["Producción Entregada a Cliente\n", show(pmC), "\n"];
+%output["Demanda\n", show(d), "\n"];
+%output["Producción Central Nuclear\n", show(pdN), "\n"];
+%output["Producción Central Hidroeléctrica\n", show(pdH), "\n"];
+%output["Producción Central Térmica\n", show(pdT), "\n"];
+%output["La Ganancia neta que se obtiene al maximizar\n"];
+%output["la producción en los ", show(n), " días es: ", show(PH)];
+output["Funcion Objetivo: ",show(PH)];
+

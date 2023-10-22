@@ -5,6 +5,8 @@ const form = document.getElementById("energyForm");
 const resultsDiv = document.getElementById("results");
 const gananciaP = document.getElementById("ganancia");
 const demandInputs = document.querySelectorAll("input");
+const consecutiveDaysInput = document.getElementById("consecutiveDays");
+const errorMessage = document.getElementById("error-message");
 
 const habilitarCamposButton = document.getElementById("habilitarCampos");
 
@@ -20,6 +22,19 @@ form.addEventListener("submit", function (e) {
 
 demandInputs.forEach((input) => {
   input.addEventListener("input", hideResults);
+});
+
+consecutiveDaysInput.addEventListener("input", function () {
+  const consecutiveDays = parseInt(consecutiveDaysInput.value);
+  const totalDays = parseInt(daysInput.value);
+
+  if (consecutiveDays > totalDays) {
+    errorMessage.textContent = "Error: La cantidad de días consecutivos no puede ser mayor que la cantidad total de días ingresados en el campo superior.";
+    consecutiveDaysInput.classList.add("error"); // Puedes aplicar estilos para resaltar el campo con error
+  } else {
+    errorMessage.textContent = ""; // Borra el mensaje de error
+    consecutiveDaysInput.classList.remove("error");
+  }
 });
 
 const reloadButton = document.getElementById("reloadButton");
@@ -105,7 +120,7 @@ function generateDZN() {
   data.capT = parseFloat(document.getElementById("capT").value);
   data.G = parseFloat(document.getElementById("garantia").value);
   if (camposAdicionales.style.display != "none") {
-    data.ns = (parseInt(document.getElementById("consecutiveDays").value)) + 1;
+    data.ns = parseInt(document.getElementById("consecutiveDays").value);
     data.ps = parseFloat(document.getElementById("minGuarantee").value);
   }
 

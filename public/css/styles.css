@@ -130,3 +130,9 @@ td {
     font-size: 2rem;
   }
 }
+
+.error-message {
+  color: red;
+  margin-bottom: 10px;
+  font-weight: 800;
+}
