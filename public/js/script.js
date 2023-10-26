@@ -179,6 +179,12 @@ function generateDZN() {
       console.log(dataObject);
       generarResultadosTabla1(dataObject);
       generarResultadosTabla2(dataObject);
+
+      const gananciaP = document.getElementById("ganancia");
+      const resultsDiv = document.getElementById("results");
+      gananciaP.textContent = `$ ${dataObject.funcionObjetivo}`;
+      resultsDiv.classList.remove("no-results");
+      resultsDiv.classList.add("results");
     })
     .catch((error) => {
       console.error("Error al generar DZN y ejecutar el modelo:", error);
