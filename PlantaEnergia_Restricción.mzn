@@ -158,12 +158,10 @@ solve maximize PH;
 %==========================================================
 %==========================================================
 
-%output["Producción Entregada a Cliente\n", show(pmC), "\n"];
-%output["Demanda\n", show(d), "\n"];
-%output["Producción Central Nuclear\n", show(pdN), "\n"];
-%output["Producción Central Hidroeléctrica\n", show(pdH), "\n"];
-%output["Producción Central Térmica\n", show(pdT), "\n"];
-%output["La Ganancia neta que se obtiene al maximizar\n"];
-%output["la producción en los ", show(n), " días es: ", show(PH)];
-output["Funcion Objetivo: ",show(PH)];
+output["Produccion Entregada a Cliente: \n",show(pmC),"\n"];
+output["Demanda: \n", show(d),"\n"];
+output["Produccion Central Nuclear: \n",show(pdN),"\n"];
+output["Produccion Central Hidroeléctrica: \n",show(pdH),"\n"];
+output["Produccion Central Térmica: \n",show(pdT),"\n"];
+output["Funcion Objetivo: \n",show(PH)];
 

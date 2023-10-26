@@ -14,41 +14,41 @@
         <div class="info card">
           <h4>INFORMACIÓN GENERAL</h4>
           <label for="days">Cantidad de Días:</label>
-          <input type="number" id="days" name="days" min="0" required />
+          <input type="number" id="days" name="days" min="0" />
 
           <label for="clientCount">Cantidad de Clientes:</label>
-          <input type="number" id="clientCount" name="clientCount" min="0"required />
+          <input type="number" id="clientCount" name="clientCount" min="0" />
 
           <label for="garantia">Garantía Mínima:</label>
-          <input type="number" id="garantia" name="garantia" min="0" required />
+          <input type="number" id="garantia" name="garantia" min="0" />
         </div>
 
         <div class="centrales">
           <div class="hidroelectrica card">
             <h4>CENTRAL HIDROELÉCTRICA</h4>
             <label for="costH">Costo de producción:</label>
-            <input type="number" id="costH" name="costH" min="0" required />
+            <input type="number" id="costH" name="costH" min="0" />
 
             <label for="capH">Capacidad:</label>
-            <input type="number" id="capH" name="capH" min="0" required />
+            <input type="number" id="capH" name="capH" min="0" />
           </div>
 
           <div class="termica card">
             <h4>CENTRAL TÉRMICA</h4>
             <label for="costT">Costo de producción:</label>
-            <input type="number" id="costT" name="costT" min="0" required />
+            <input type="number" id="costT" name="costT" min="0" />
 
             <label for="capT">Capacidad:</label>
-            <input type="number" id="capT" name="capT" min="0" required />
+            <input type="number" id="capT" name="capT" min="0" />
           </div>
 
           <div class="nuclear card">
             <h4>CENTRAL NUCLEAR</h4>
             <label for="costN">Costo de producción:</label>
-            <input type="number" id="costN" name="costN" min="0" required />
+            <input type="number" id="costN" name="costN" min="0" />
 
             <label for="capN">Capacidad:</label>
-            <input type="number" id="capN" name="capN" min="0" required />
+            <input type="number" id="capN" name="capN" min="0" />
           </div>
         </div>
 
@@ -65,7 +65,10 @@
           Añadir restricciones de producción
         </button>
         <div id="camposAdicionales" style="display: none">
-          <label for="consecutiveDays">Cantidad de Días Consecutivos en los que NO se pueden producir en regimen superior:</label>
+          <label for="consecutiveDays"
+            >Cantidad de Días Consecutivos en los que NO se pueden producir en
+            regimen superior:</label
+          >
           <input
             type="number"
             id="consecutiveDays"
@@ -76,7 +79,6 @@
           <label for="minGuarantee">Porcentaje de Garantía Mínima:</label>
           <input type="number" id="minGuarantee" name="minGuarantee" min="0" />
         </div>
-        
 
         <input class="enviar" type="submit" value="Calcular ganancia" />
       </form>
@@ -86,6 +88,16 @@
         <p id="ganancia"></p>
       </div>
       <button id="reloadButton">Nuevo problema</button>
+      <div class="results_tables">
+        <!-- Después del párrafo con el resultado de la ganancia, agrega las dos tablas -->
+        <table id="clientDemandTable">
+          <!-- La tabla para mostrar la información de los clientes -->
+        </table>
+  
+        <table id="powerPlantTable">
+          <!-- La tabla para mostrar la información de las centrales eléctricas -->
+        </table>
+      </div>
     </div>
     <script src="./js/script.js"></script>
   </body>

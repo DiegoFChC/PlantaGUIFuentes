@@ -11,6 +11,7 @@ body {
   width: 100%;
   min-height: 100vh;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   background-color: rgb(44, 105, 236);
@@ -135,4 +136,11 @@ td {
   color: red;
   margin-bottom: 10px;
   font-weight: 800;
+}
+
+.results_tables {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }

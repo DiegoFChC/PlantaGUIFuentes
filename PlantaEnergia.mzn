@@ -105,9 +105,9 @@ constraint PH = sum(i in 1..n)(
 
 solve maximize PH;
 
-%output["Producion Entregada a Cliente",show(pmC),"\n"];
-%output["Demanda", show(d),"\n"];
-%output["Producion Central Nuclear",show(pdN),"\n"];
-%output["Producion Central Hidroeléctrica",show(pdH),"\n"];
-%output["Producion Central Térmica",show(pdT),"\n"];
-output["Funcion Objetivo: ",show(PH)];
+output["Produccion Entregada a Cliente: \n",show(pmC),"\n"];
+output["Demanda: \n", show(d),"\n"];
+output["Produccion Central Nuclear: \n",show(pdN),"\n"];
+output["Produccion Central Hidroeléctrica: \n",show(pdH),"\n"];
+output["Produccion Central Térmica: \n",show(pdT),"\n"];
+output["Funcion Objetivo: \n",show(PH)];
