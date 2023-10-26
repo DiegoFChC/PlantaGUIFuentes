@@ -179,6 +179,7 @@ function generateDZN() {
       console.log(dataObject);
       generarResultadosTabla1(dataObject);
       generarResultadosTabla2(dataObject);
+      generarResultadosTabla3(dataObject);
 
       const gananciaP = document.getElementById("ganancia");
       const resultsDiv = document.getElementById("results");
@@ -191,79 +192,11 @@ function generateDZN() {
     });
 }
 
-function processResultsAndShowTable(resultsString) {
-  const data = resultsString
-    .split("\n")
-    .map((line) => line.trim())
-    .filter((line) => line.length > 0);
-
-  const dataSets = [];
-  let currentDataSet = [];
-
-  for (const line of data) {
-    if (line === "Funcion Objetivo: 16994000") {
-      dataSets.push(currentDataSet);
-      currentDataSet = [];
-    } else {
-      const numbers = line.match(/\d+/g);
-      if (numbers) {
-        currentDataSet.push(numbers.map(Number));
-      }
-    }
-  }
-
-  const jsonResult = {
-    "entrega a clientes": {},
-    "demanda de clientes": {},
-    "central nuclear": {},
-    "central hidroelectrica": {},
-    "central termica": {},
-    "funcion objetivo": 0,
-  };
-
-  if (dataSets.length === 6) {
-    jsonResult["entrega a clientes"] = dataSets[0];
-    jsonResult["demanda de clientes"] = dataSets[1];
-    jsonResult["central nuclear"] = dataSets[2][0];
-    jsonResult["central hidroelectrica"] = dataSets[3][0];
-    jsonResult["central termica"] = dataSets[4][0];
-    jsonResult["funcion objetivo"] = parseInt(dataSets[5][0]);
-  }
-
-  console.log("Resultados procesados:", jsonResult);
-}
-
-function extractLine(text, targetLine) {
-  const lines = text.split("\n");
-  const lineIndex = lines.findIndex((line) => line.startsWith(targetLine));
-
-  if (lineIndex !== -1) {
-    const line = lines[lineIndex];
-    // Elimina el texto "targetLine" de la línea
-    const lineWithoutPrefix = line.substring(targetLine.length);
-    // Convierte los valores en un array de números
-    const values = lineWithoutPrefix.match(/\d+/g).map(Number);
-    return values;
-  }
-
-  return null; // Si no se encuentra la línea, devuelve null
-}
-
-// function extraerProduccionEntregada(texto) {
-//   const regex = /\[[^\]]+\]/g;
-//   const coincidencias = texto.match(regex);
-//   if (coincidencias && coincidencias.length >= 1) {
-//     return coincidencias[0];
-//   } else {
-//     return null; // Si no se encuentra el patrón, retorna null o puedes manejar el error de otra manera.
-//   }
-// }
-
 function extraerDatos(texto) {
   const regex = /\[[^\]]+\]/g;
   const coincidencias = texto.match(regex);
-  if (coincidencias && coincidencias.length >= 5) {
-    const datos = coincidencias.slice(0, 5).map((dato) => JSON.parse(dato));
+  if (coincidencias && coincidencias.length >= 6) {
+    const datos = coincidencias.slice(0, 6).map((dato) => JSON.parse(dato));
 
     // Buscar el valor de la Funcion Objetivo
     const funcionObjetivoRegex = /Funcion\s+Objetivo:\s*(\d+)/;
@@ -280,7 +213,8 @@ function extraerDatos(texto) {
       produccionCentralNuclear: datos[2],
       produccionCentralHidroelectrica: datos[3],
       produccionCentralTermica: datos[4],
-      funcionObjetivo: datos[5],
+      ganaciasPorClienteCadaDia: datos[5],
+      funcionObjetivo: datos[6],
     };
   } else {
     return null;
@@ -295,6 +229,7 @@ function transformarObjeto(objeto) {
 
   const entregaAClientes = {};
   const demandaDeClientes = {};
+  const gananciaPorClienteDia = {};
 
   for (let i = 0; i < m; i++) {
     const clienteEntrega = objeto.produccionEntregadaAClientes.slice(
@@ -305,6 +240,12 @@ function transformarObjeto(objeto) {
 
     const clienteDemanda = objeto.demandaClientes.slice(i * n, (i + 1) * n);
     demandaDeClientes[`cliente${i + 1}`] = clienteDemanda;
+
+    const clienteGanancia = objeto.ganaciasPorClienteCadaDia.slice(
+      i * n,
+      (i + 1) * n
+    );
+    gananciaPorClienteDia[`cliente${i + 1}`] = clienteGanancia;
   }
 
   const centralNuclear = {};
@@ -326,6 +267,7 @@ function transformarObjeto(objeto) {
     centralNuclear: centralNuclear,
     centralHidroelectrica: centralHidroelectrica,
     centralTermica: centralTermica,
+    gananciaClientesPorDia: gananciaPorClienteDia,
     funcionObjetivo: funcionObjetivo,
   };
 
@@ -414,5 +356,37 @@ function generarResultadosTabla2(dataObject) {
     }
 
     powerPlantTable.appendChild(centralRow);
+  }
+}
+
+function generarResultadosTabla3(dataObject) {
+  const gananciaClientes = document.getElementById(
+    "gananciaPorClienteTabla"
+  );
+  const days = Object.keys(dataObject.centralHidroelectrica).length;
+  const clientCount = Object.keys(dataObject.entregaAClientes).length;
+  console.log(clientCount, days);
+
+  //TABLA 1
+  // Limpia la tabla si ya contiene datos anteriores
+  gananciaClientes.innerHTML = "";
+
+  // Crea el encabezado de la tabla
+  const headerRow = document.createElement("tr");
+  headerRow.innerHTML = "<th>Cliente</th>";
+  for (let j = 0; j < days; j++) {
+    headerRow.innerHTML += `<th>Ganancia del dia ${j + 1}</th>`;
+  }
+  gananciaClientes.appendChild(headerRow);
+
+  // Llena la tabla con los nombres de los clientes y los valores de la ganancia
+  for (let i = 0; i < clientCount; i++) {
+    const clientRow = document.createElement("tr");
+    clientRow.innerHTML = `<td>Cliente ${i + 1}</td>`;
+    for (let j = 0; j < days; j++) {
+      const gananciaCliente = dataObject.gananciaClientesPorDia[`cliente${i + 1}`][j];
+      clientRow.innerHTML += `<td>${gananciaCliente}</td>`; 
+    }
+    gananciaClientes.appendChild(clientRow);
   }
 }

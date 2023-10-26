@@ -1,12 +1,15 @@
 % Datos generados desde el formulario
-n = 1;
-m = 1;
+n = 2;
+m = 2;
 cosN = 4000;
-cosH = 2000;
-cosT = 3000;
-capN = 7000;
-capH = 2000;
-capT = 4000;
+cosH = 3000;
+cosT = 5000;
+capN = 10000;
+capH = 4000;
+capT = 2000;
 G = 50;
-P = [10000];
-d = [|1000|];
+ns = 1;
+ps = 80;
+P = [3000, 5000];
+d = [|200, 500
+    |300, 100|];

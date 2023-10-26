@@ -1,4 +1,3 @@
-
 %=============Probléma Centrales Eléctricas=================
 
 %===================David Alberto Guzmán    - 1942789
@@ -50,6 +49,7 @@ array [1..n] of var 0..capH: pdH; %Produción de la central Hidroeléctrica en u
 array [1..n] of var 0..capT: pdT; %Produción de la central Térmica en un dia n
 
 array [1..m, 1..n] of var 0..(capN+capH+capT):pmC; %Producion máxima dada a cada clientes
+array [1..m, 1..n] of var int:gpC; %Ganancia obtenida por cada cliente m en un día n
 
 var int: PH; %Representa la ganancia neta obtenida por producccion de y entrega de MW en un horizonte n a m clientes
 
@@ -133,6 +133,10 @@ constraint forall (s in 1..m,i in 1..n) (
   d[s,i] >= 0
 );
 
+constraint forall (s in 1..m,i in 1..n) (
+  gpC[s,i] >= 0
+);
+
 %==========================================================
 %==========================================================
 %====================Función Objetivo======================
@@ -145,8 +149,9 @@ constraint PH = sum(i in 1..n)(
           (cosN*pdN[i]+cosH*pdH[i]+cosT*pdT[i])
 );  
 
-
-
+constraint forall (s in 1..m,i in 1..n) (
+  gpC[s,i] = (P[s]*pmC[s,i])
+);
 
 
 solve maximize PH;
@@ -163,5 +168,6 @@ output["Demanda: \n", show(d),"\n"];
 output["Produccion Central Nuclear: \n",show(pdN),"\n"];
 output["Produccion Central Hidroeléctrica: \n",show(pdH),"\n"];
 output["Produccion Central Térmica: \n",show(pdT),"\n"];
+output["Ganancia obtenida por cada cliente en cada día: \n", show(gpC), "\n"];
 output["Funcion Objetivo: \n",show(PH)];
 
